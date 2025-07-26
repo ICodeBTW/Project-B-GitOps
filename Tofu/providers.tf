@@ -4,6 +4,11 @@ terraform {
       source = "exoscale/exoscale"
       version = "0.64.2"
     }
+
+      kubectl = {
+      source = "gavinbunney/kubectl"
+      version = "~> 1.14"
+    }
   }
 }
 

@@ -39,11 +39,14 @@ resource "exoscale_sks_cluster" "kube-sg-cluster" {
   service_level = "pro"
   exoscale_ccm = true
   
+  
 }
 
 output "kube-sg-cluster_endpoint" {
   value = exoscale_sks_cluster.kube-sg-cluster.endpoint
+
 }
+ 
  
 resource "exoscale_sks_nodepool" "kube-sg-nodepool" {
   cluster_id         = exoscale_sks_cluster.kube-sg-cluster.id
@@ -53,3 +56,5 @@ resource "exoscale_sks_nodepool" "kube-sg-nodepool" {
   instance_type      = "standard.small"
   size               = 3
 }
+
+
