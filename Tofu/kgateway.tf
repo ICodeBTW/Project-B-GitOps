@@ -34,6 +34,11 @@ locals {
 #   depends_on = [ exoscale_sks_nodepool.kube-sg-nodepool ]
 # }
  
+output "gateway_out" {
+   value = local.gateway_api_manifests
+   description = "gateway"
+}
+
 
 resource "kubectl_manifest" "gateway_api" {
   for_each = local.gateway_api_manifests

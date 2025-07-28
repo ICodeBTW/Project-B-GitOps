@@ -1,4 +1,5 @@
 
+# Make this into a variable and get rid of namespace creation.
 resource "kubernetes_namespace" "argocd_namespace" {
   metadata {
     name = "argocd"
