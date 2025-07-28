@@ -11,20 +11,20 @@ locals {
     if trimspace(doc) != ""
   ]
 
-  valid_docs = [
-    for doc in local.raw_docs :
-    doc
-    if length(doc) > 5 &&
-    strcontains(doc, "apiVersion:") &&
-    strcontains(doc, "kind:") &&
-    !startswith(doc, "#")
-  ]
+  # valid_docs = [
+  #   for doc in local.raw_docs :
+  #   doc
+  #   if length(doc) > 5 &&
+  #   strcontains(doc, "apiVersion:") &&
+  #   strcontains(doc, "kind:") &&
+  #   !startswith(doc, "#")
+  # ]
 
-  gateway_api_manifests = {
-    for idx, doc in local.valid_docs :
-    "doc-${idx}" => yamldecode(doc)
+  gateway_api_manifests = toset([
+    for idx, doc in local.raw_docs :
+    doc
     if can(yamldecode(doc))
-  }
+  ])
 }
 
 # resource "kubernetes_manifest" "gateway_api" {
@@ -34,15 +34,15 @@ locals {
 #   depends_on = [ exoscale_sks_nodepool.kube-sg-nodepool ]
 # }
  
-output "gateway_out" {
-   value = local.gateway_api_manifests
-   description = "gateway"
-}
+# output "gateway_out" {
+#    value = local.gateway_api_manifests["doc-1"]
+#   #  description = "gateway"
+# }
 
 
 resource "kubectl_manifest" "gateway_api" {
   for_each = local.gateway_api_manifests
-  yaml_body = each.value
+  yaml_body = each.key
   depends_on = [ exoscale_sks_nodepool.kube-sg-nodepool ]
   
 }
