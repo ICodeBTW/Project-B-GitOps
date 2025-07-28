@@ -7,7 +7,7 @@ spec:
   instances: 3
   storage:
     size: 1Gi
-    storageClass: "exoscale-sbs" 
+    storageClassName: exoscale-sbs
   bootstrap:
     initdb:
       database: dbname

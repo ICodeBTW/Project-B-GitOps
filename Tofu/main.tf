@@ -38,6 +38,7 @@ resource "exoscale_sks_cluster" "kube-sg-cluster" {
   name = "kube-sg-cluster"
   service_level = "pro"
   exoscale_ccm = true
+  exoscale_csi = true
   
   
 }
