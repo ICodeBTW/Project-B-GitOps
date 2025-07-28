@@ -15,4 +15,4 @@ spec:
       postInitApplicationSQLRefs:
         configMapRefs:
         - name: init-sql  
-          key: init.sql   
+          key: init.sql

@@ -8,7 +8,7 @@ spec:
   - name: kube-sg-gateway
     namespace: kgateway-system
   hostnames:
-  - "kubetest.shreenidhi.dev"
+  - "kubetest.shreenidhi.cloud"
   rules:
   - matches:
       - path:

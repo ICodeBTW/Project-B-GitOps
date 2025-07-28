@@ -9,7 +9,7 @@ spec:
     namespace: kgateway-system
     sectionName: http
   hostnames:
-  - "kubetest.shreenidhi.dev"
+  - "kubetest.shreenidhi.cloud"
   rules:
   - filters:
     - type: RequestRedirect

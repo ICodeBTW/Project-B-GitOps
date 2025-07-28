@@ -18,12 +18,12 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "kubetest.shreenidhi.dev"
+      hostname: "kubetest.shreenidhi.cloud"
       tls:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: kubetest-shreenidhi-dev-tls
+            name: kubetest-shreenidhi-cloud-tls
       allowedRoutes:
         namespaces:
           from: All
