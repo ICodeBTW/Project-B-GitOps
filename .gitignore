@@ -1,3 +1,5 @@
 Tofu/.env
 Tofu/.terraform
 Tofu/kubeconfig
+Tofu/terraform.tfstate
+Tofu/terraform.tfstate.backup

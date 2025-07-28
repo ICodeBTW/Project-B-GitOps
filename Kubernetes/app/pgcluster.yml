@@ -1,0 +1,18 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: kube-sg
+spec:
+  instances: 3
+  storage:
+    size: 1Gi
+  bootstrap:
+    initdb:
+      database: dbname
+      owner: user
+      # SQL run init.sql from config map
+      postInitApplicationSQLRefs:
+        configMapRefs:
+        - name: init-sql  
+          key: init.sql   

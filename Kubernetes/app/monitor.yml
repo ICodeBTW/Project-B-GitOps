@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kube-sg-monitor
+  namespace: kube-sg # Create the monitor in the same namespace as your services
+  labels:
+    release: prometheus # This label allows the Prometheus instance to find it
+spec:
+  # Select services in the "kube-sg" namespace
+  namespaceSelector:
+    matchNames:
+    - kube-sg
+  # Select services with either 'app=auth-service' or 'app=game-service'
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - auth-service
+      - game-service
+  endpoints:
+  - port: http-metrics # Scrape the port we named 'http-metrics'
+    interval: 15s      # Scrape every 15 seconds
+    path: /metrics     # The path where metrics are exposed
