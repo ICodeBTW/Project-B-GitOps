@@ -23,6 +23,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
+            name: kubetest-shreenidhi-cloud-tlss
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https-8443
+      protocol: HTTPS
+      port: 8443
+      hostname: "kubetest.shreenidhi.cloud"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
             name: kubetest-shreenidhi-cloud-tls
       allowedRoutes:
         namespaces:
