@@ -3,3 +3,4 @@ Tofu/.terraform
 Tofu/kubeconfig
 Tofu/terraform.tfstate
 Tofu/terraform.tfstate.backup
+Tofu/.terraform.tfstate.lock.info

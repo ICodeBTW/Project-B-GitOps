@@ -9,18 +9,28 @@ resource "kubernetes_namespace" "argocd_namespace" {
   depends_on = [exoscale_sks_nodepool.kube-sg-nodepool]
 }
 
+resource "kubernetes_namespace" "kube-sg-namespace" {
+  metadata {
+    name = "kube-sg"
+    labels = {
+      "name" = "kube-sg"
+    }
+  }
+  depends_on = [exoscale_sks_nodepool.kube-sg-nodepool]
+}
+
 # Local testing
-# resource "local_sensitive_file" "kubeconfig_file" {
+resource "local_sensitive_file" "kubeconfig_file" {
 
-#   filename = "./kubeconfig.yml"
-#   content = exoscale_sks_kubeconfig.kube-sg-kubeconfig.kubeconfig
+  filename = "./kubeconfig.yml"
+  content = exoscale_sks_kubeconfig.kube-sg-kubeconfig.kubeconfig
 
-#   provisioner "local-exec" {
-#     when = destroy
-#     command = "rm -rf ./kubeconfig.yml"
-#   }
+  provisioner "local-exec" {
+    when = destroy
+    command = "rm -rf ./kubeconfig.yml"
+  }
 
-# }
+}
 
 resource "helm_release" "argocd" {
   name       = "argocd"
@@ -98,8 +108,9 @@ EOF
 
 
 
-resource "kubernetes_manifest" "argocd_app" {
-  manifest = {
+resource "kubectl_manifest" "argocd_app" {
+  
+   yaml_body  = yamlencode({
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
 
@@ -133,11 +144,12 @@ resource "kubernetes_manifest" "argocd_app" {
         ]
       }
     }
-  }
+  })
 
   depends_on = [
     helm_release.argocd,
-    kubernetes_namespace.argocd_namespace
+    kubernetes_namespace.argocd_namespace,
+    kubectl_manifest.kgateway_helm
   ]
 }
 
