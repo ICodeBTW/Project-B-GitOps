@@ -36,11 +36,10 @@ resource "exoscale_security_group_rule" "kube-sg-vxlan-rule" {
 resource "exoscale_sks_cluster" "kube-sg-cluster" {
   zone = "ch-gva-2"
   name = "kube-sg-cluster"
-  service_level = "pro"
+  service_level = "starter"
   exoscale_ccm = true
   exoscale_csi = true
-  
-  
+ 
 }
 
 output "kube-sg-cluster_endpoint" {
